@@ -1,10 +1,14 @@
 window.toolAddButtonSelector     = 'tool-add',
 window.toolRemoveButtonSelector  = 'tool-remove',
 window.configurationFormSelector = 'configuration-form';
+window.entryTemplateSelector     = 'is--template';
 
 window.toolAddButtonObject     = null,
 window.toolRemoveButtonObject  = null,
 window.configurationFormObject = null;
+window.entryTemplateObject     = null;
+
+window.checkboxCounter = 0;
 
 /**
  * Gets all checked entries in the form.
@@ -15,7 +19,6 @@ function getCheckedEntries() {
     let entries        = window.configurationFormObject.querySelectorAll('#select'),
         checkedEntries = [];
     
-        // console.log(entries);
     for (var i = 0; i < entries.length; i++) {
         if (entries[i].checked) {
             checkedEntries.push(entries[i]);
@@ -28,6 +31,8 @@ function getCheckedEntries() {
 
 /**
  * Gets the full item of the select-field.
+ * 
+ * @param {object} entry
  */
 function getItem(entry) {
     return entry.parentElement;
@@ -35,8 +40,6 @@ function getItem(entry) {
 
 /**
  * TODO: ADD CHECK IF BUTTON IS DISABLED
- * TODO: ADD EVENT IF ANY SELECT IS ACTIVE
- *       TO DISABLE DEACTIVATED CLASS
  * 
  * Removes all selected items.
  * 
@@ -52,6 +55,8 @@ function removeItem() {
             item.remove();
         }
     }
+
+    registerElements(true);
 }
 
 /**
@@ -60,7 +65,39 @@ function removeItem() {
  * Gets called when button window.toolAddButtonObject gets pressed.
  */
 function addItem() {
-    console.log("addClicked");
+    window.configurationFormObject.append(window.entryTemplateObject);
+}
+
+function changeStateOfRemoveTool(state) {
+    console.log(state);
+
+    if (state == 'activate') {
+        window.toolRemoveButtonObject.classList.remove('deactivated');
+    } else if(state == 'deactivate') {
+        window.toolRemoveButtonObject.classList.add('deactivated');
+    }
+}
+
+function checkCheckboxCounter() {
+    let state = null;
+
+    if (window.checkboxCounter > 0) {
+        state = 'activate';
+    } else {
+        state = 'deactivate';
+    }
+
+    changeStateOfRemoveTool(state);
+}
+
+function checkCheckboxState(event) {
+    if (event.target.checked) {
+        window.checkboxCounter += 1;
+    } else {
+        window.checkboxCounter -= 1;
+    }
+
+    checkCheckboxCounter();
 }
 
 /**
@@ -69,19 +106,76 @@ function addItem() {
 function registerEvents() {
     window.toolAddButtonObject.addEventListener('click', addItem, true);
     window.toolRemoveButtonObject.addEventListener('click', removeItem, true);
-    console.log("registerEvents");
+
+    for (var i = 0; i < window.entriesCheckboxes.length; i++) {
+        window.entriesCheckboxes[i].addEventListener('change', checkCheckboxState, true);
+    }
+}
+
+/**
+ * Removes the given arrayList or variable from the given event listener. 
+ * 
+ * @param {array} objects 
+ * @param {event} event 
+ * @param {object} functionName 
+ * @param {boolean} [array=false] - If the variable 'object' is a array 
+ */
+function unbindEvents(objects, event, functionName, array = false) {
+    if (array == true) {
+        for (var i = 0; i < objects.length; i++) {
+            objects[i].removeEventListener(event, functionName, true);
+        }
+    } else {
+        unbindobjects.removeEventListener(event, functionName, true);
+    }
+}
+
+/**
+ * Registers all checkboxes in the configuration.
+ * 
+ * @param {boolean} reset
+ */
+function registerCheckboxes(reset) {
+    if (reset == true) {
+        unbindEvents(window.entriesCheckboxes, 'change', checkCheckboxState, true);
+
+        // Reset the counter
+        window.checkboxCounter = 0;
+
+        // And call the checkboxCounter Checker
+        checkCheckboxCounter();
+    }
+
+    // Fetch new checkboxes
+    window.entriesCheckboxes = document.getElementsByClassName('entry--select');
+}
+
+function cloneTemplate() {
+    window.entryTemplate = window.entryTemplateObject.cloneNode(true).removeAttribute('id');
 }
 
 /**
  * Registers all needed elements.
+ * 
+ * @param {boolean} [reset=false]
  */
-function registerElements() {
-    window.toolAddButtonObject     = document.getElementById(window.toolAddButtonSelector);
-    window.toolRemoveButtonObject  = document.getElementById(window.toolRemoveButtonSelector);
-    window.configurationFormObject = document.getElementById(window.configurationFormSelector);
+function registerElements(reset = false) {
+    if (reset == false) {
+        window.toolAddButtonObject     = document.getElementById(window.toolAddButtonSelector);
+        window.toolRemoveButtonObject  = document.getElementById(window.toolRemoveButtonSelector);
+        window.configurationFormObject = document.getElementById(window.configurationFormSelector);
 
-    console.log("registerElements");
+        window.entryTemplateObject = document.getElementById(window.entryTemplateSelector);
+        cloneTemplate();
+    }
+
+    registerCheckboxes(reset);
+
     registerEvents();
 }
 
-document.addEventListener('DOMContentLoaded', registerElements, false);
+function init() {
+    registerElements();
+}
+
+document.addEventListener('DOMContentLoaded', init, false);
