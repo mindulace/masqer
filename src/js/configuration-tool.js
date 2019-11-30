@@ -9,6 +9,7 @@ window.configurationFormObject = null;
 window.entryTemplateObject     = null;
 
 window.checkboxCounter = 0;
+window.classDeactivate = 'deactivated';
 
 /**
  * Gets all checked entries in the form.
@@ -33,19 +34,27 @@ function getCheckedEntries() {
  * Gets the full item of the select-field.
  * 
  * @param {object} entry
+ * 
+ * @return {object}
  */
 function getItem(entry) {
     return entry.parentElement;
 }
 
 /**
- * TODO: ADD CHECK IF BUTTON IS DISABLED
- * 
  * Removes all selected items.
  * 
  * Gets called when button window.toolRemoveButtonObject gets pressed.
+ * 
+ * @param {event} event
+ * 
+ * @return {void}
  */
-function removeItem() {
+function removeItem(event) {
+    if (event.target.classList.contains(window.classDisabled)) {
+        return;
+    }
+
     let selectedEntries = getCheckedEntries();
 
     if (selectedEntries != null) {
@@ -60,24 +69,48 @@ function removeItem() {
 }
 
 /**
+ * Clones the template into a variable.
+ * 
+ * @return {void}
+ */
+function cloneTemplate() {
+    window.entryTemplate = window.entryTemplateObject.cloneNode(true);
+    window.entryTemplate.removeAttribute('id');
+}
+
+/**
  * Adds a new item to the form.
  * 
  * Gets called when button window.toolAddButtonObject gets pressed.
+ * 
+ * @return {void}
  */
 function addItem() {
-    window.configurationFormObject.append(window.entryTemplateObject);
+    cloneTemplate();
+    
+    window.configurationFormObject.append(window.entryTemplate);
+
+    registerElements(true);
 }
 
+/**
+ * Adds class to remove tool depending of the given state.
+ * 
+ * @param {string} state 
+ */
 function changeStateOfRemoveTool(state) {
-    console.log(state);
-
     if (state == 'activate') {
-        window.toolRemoveButtonObject.classList.remove('deactivated');
+        window.toolRemoveButtonObject.classList.remove(window.classDisabled);
     } else if(state == 'deactivate') {
-        window.toolRemoveButtonObject.classList.add('deactivated');
+        window.toolRemoveButtonObject.classList.add(window.classDisabled);
     }
 }
 
+/**
+ * Checks the amount of the counter and set the sate.
+ * 
+ * @return {void}
+ */
 function checkCheckboxCounter() {
     let state = null;
 
@@ -90,11 +123,31 @@ function checkCheckboxCounter() {
     changeStateOfRemoveTool(state);
 }
 
-function checkCheckboxState(event) {
-    if (event.target.checked) {
-        window.checkboxCounter += 1;
+/**
+ * Checks the checked state of the given checkbox or all checkboxes.
+ * 
+ * @param {event} event
+ * @param {boolean} [checkRegisteredCheckboxes = false]
+ * 
+ * @return {void}
+ */
+function checkCheckboxState(event, checkRegisteredCheckboxes = false) {
+    if (checkRegisteredCheckboxes == false){
+        if (event.target.checked) {
+            window.checkboxCounter += 1;
+        } else {
+            window.checkboxCounter -= 1;
+        }
     } else {
-        window.checkboxCounter -= 1;
+        // Reset to counter
+        window.checkboxCounter = 0;
+
+        // Increase counter for every checked checkbox
+        for (var i = 0; i < window.entriesCheckboxes.length; i++) {
+            if (window.entriesCheckboxes[i].checked) {
+                window.checkboxCounter += 1;
+            }
+        }
     }
 
     checkCheckboxCounter();
@@ -102,6 +155,8 @@ function checkCheckboxState(event) {
 
 /**
  * Registers all needed events.
+ * 
+ * @return {void}
  */
 function registerEvents() {
     window.toolAddButtonObject.addEventListener('click', addItem, true);
@@ -118,7 +173,9 @@ function registerEvents() {
  * @param {array} objects 
  * @param {event} event 
  * @param {object} functionName 
- * @param {boolean} [array=false] - If the variable 'object' is a array 
+ * @param {boolean} [array = false] - If the variable 'object' is a array
+ * 
+ * @return {void}
  */
 function unbindEvents(objects, event, functionName, array = false) {
     if (array == true) {
@@ -134,13 +191,15 @@ function unbindEvents(objects, event, functionName, array = false) {
  * Registers all checkboxes in the configuration.
  * 
  * @param {boolean} reset
+ * 
+ * @return {void}
  */
 function registerCheckboxes(reset) {
     if (reset == true) {
         unbindEvents(window.entriesCheckboxes, 'change', checkCheckboxState, true);
 
-        // Reset the counter
-        window.checkboxCounter = 0;
+        // Check if there are any checked checkboxes
+        checkCheckboxState(null, true);
 
         // And call the checkboxCounter Checker
         checkCheckboxCounter();
@@ -150,14 +209,12 @@ function registerCheckboxes(reset) {
     window.entriesCheckboxes = document.getElementsByClassName('entry--select');
 }
 
-function cloneTemplate() {
-    window.entryTemplate = window.entryTemplateObject.cloneNode(true).removeAttribute('id');
-}
-
 /**
  * Registers all needed elements.
  * 
- * @param {boolean} [reset=false]
+ * @param {boolean} [reset = false]
+ * 
+ * @return {void}
  */
 function registerElements(reset = false) {
     if (reset == false) {
@@ -166,7 +223,6 @@ function registerElements(reset = false) {
         window.configurationFormObject = document.getElementById(window.configurationFormSelector);
 
         window.entryTemplateObject = document.getElementById(window.entryTemplateSelector);
-        cloneTemplate();
     }
 
     registerCheckboxes(reset);
@@ -174,6 +230,9 @@ function registerElements(reset = false) {
     registerEvents();
 }
 
+/**
+ * Initialize the javascript.
+ */
 function init() {
     registerElements();
 }
