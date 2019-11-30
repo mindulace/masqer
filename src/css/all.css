@@ -21,6 +21,9 @@ body {
   background-color: #f1f3f6;
   font-family: 'Sulphur Point', sans-serif;
 }
+.is--hidden {
+  display: none;
+}
 input[type=checkbox],
 input[type=radio] {
   position: relative;
@@ -110,12 +113,12 @@ input[type=submit]:active {
   text-shadow: rgba(255, 255, 255, 0.5) 0px 2px 2px;
 }
 .header-container .header-title:after {
-  content: 'web configuration';
+  content: 'dnsmasq configuration';
   position: absolute;
-  left: 7px;
-  bottom: -11px;
+  left: -42px;
+  bottom: -5px;
   font-weight: lighter;
-  font-size: 23px;
+  font-size: 20px;
   text-shadow: none;
   color: #b1b1b1;
   letter-spacing: normal;
@@ -152,12 +155,13 @@ input[type=submit]:active {
   line-height: 0;
   text-align: center;
   background-color: transparent;
-  transition: background-color 0.2s;
-  color: #b1b1b1;
+  color: #333333;
+  opacity: 0.5;
+  transition: opacity 0.2s, background-color 0.2s;
 }
 .configuration-container .configuration-header .configuration-tools--list .configuration-tools--button:not(.deactivated) {
   cursor: pointer;
-  color: #333333;
+  opacity: 1;
 }
 .configuration-container .configuration-header .configuration-tools--list .configuration-tools--button:not(.deactivated):hover {
   background-color: #e4e4e4;
