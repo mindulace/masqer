@@ -51,7 +51,7 @@ function getItem(entry) {
  * @return {void}
  */
 function removeItem(event) {
-    if (event.target.classList.contains(window.classDisabled)) {
+    if (event.target.classList.contains(window.classDeactivate)) {
         return;
     }
 
@@ -100,9 +100,9 @@ function addItem() {
  */
 function changeStateOfRemoveTool(state) {
     if (state == 'activate') {
-        window.toolRemoveButtonObject.classList.remove(window.classDisabled);
+        window.toolRemoveButtonObject.classList.remove(window.classDeactivate);
     } else if(state == 'deactivate') {
-        window.toolRemoveButtonObject.classList.add(window.classDisabled);
+        window.toolRemoveButtonObject.classList.add(window.classDeactivate);
     }
 }
 
