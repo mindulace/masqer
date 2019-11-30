@@ -81,6 +81,8 @@ input[type=submit] {
   background-color: #8e8e8e;
   border: 0;
   padding: 8px;
+  padding-left: 17px;
+  padding-right: 17px;
   border-radius: 5px;
   font-family: inherit;
   font-weight: 900;
@@ -125,6 +127,9 @@ input[type=submit]:active {
 }
 .header-container .header-title-content {
   text-align: center;
+}
+.content-container {
+  margin-top: 210px;
 }
 .configuration-container {
   display: table;
