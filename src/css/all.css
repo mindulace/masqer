@@ -1,0 +1,183 @@
+@font-face {
+  font-family: 'Sulphur Point';
+  font-weight: lighter;
+  font-display: swap;
+  src: url('../fonts/Sulphur_Point/SulphurPoint-Light.ttf');
+}
+@font-face {
+  font-family: 'Sulphur Point';
+  font-weight: normal;
+  font-display: swap;
+  src: url('../fonts/Sulphur_Point/SulphurPoint-Regular.ttf');
+}
+@font-face {
+  font-family: 'Sulphur Point';
+  font-weight: bold;
+  font-display: swap;
+  src: url('../fonts/Sulphur_Point/SulphurPoint-Bold.ttf');
+}
+body {
+  margin: 0;
+  background-color: #f1f3f6;
+  font-family: 'Sulphur Point', sans-serif;
+}
+input[type=checkbox],
+input[type=radio] {
+  position: relative;
+  -webkit-appearance: none;
+  font-size: inherit;
+  border: 2px solid #eaeaea;
+  border-radius: 50%;
+  margin: 0;
+  color: transparent;
+  background-color: transparent;
+  outline: none;
+  font-family: 'Font Awesome 5 Free';
+  transition: transform 0.3s ease-out, background-color 0.3s ease-out, border-color 0.3s ease-out;
+  width: 22px;
+}
+input[type=checkbox]::after,
+input[type=radio]::after {
+  content: '\f00c';
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+  font-size: 13px;
+}
+input[type=checkbox]:checked,
+input[type=radio]:checked {
+  border-color: #b9b9b9;
+}
+input[type=checkbox]:checked:after,
+input[type=radio]:checked:after {
+  font-weight: 900;
+  color: #9a9a9a;
+}
+input[type=checkbox]:hover:not(:checked),
+input[type=radio]:hover:not(:checked) {
+  background-color: #d8d8d8;
+  border-color: #b9b9b9;
+}
+input[type=checkbox]:active,
+input[type=radio]:active {
+  transform: scale(0.9);
+}
+input[type=text] {
+  font-size: 17px;
+  border: none;
+  padding: 5px;
+  outline: none;
+  border-radius: 5px;
+  box-shadow: 1px 4px 9px 0px #e0e0e0;
+  font-family: inherit;
+  letter-spacing: 1px;
+}
+input[type=submit] {
+  -webkit-appearance: none;
+  background-color: #8e8e8e;
+  border: 0;
+  padding: 8px;
+  border-radius: 5px;
+  font-family: inherit;
+  font-weight: 900;
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+  outline: none;
+  transition: transform 0.3s ease-out, background-color 0.3s ease-out;
+}
+input[type=submit]:hover {
+  background-color: #6f6f6f;
+}
+input[type=submit]:active {
+  transform: scale(0.9);
+}
+.header-container {
+  padding: 10px;
+}
+.header-container .header-title {
+  font-family: 'Sulphur Point', sans-serif;
+  font-weight: bold;
+  font-size: 77px;
+  letter-spacing: -3px;
+  position: relative;
+  background-color: #666666;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: rgba(255, 255, 255, 0.5) 0px 2px 2px;
+}
+.header-container .header-title:after {
+  content: 'web configuration';
+  position: absolute;
+  left: 7px;
+  bottom: -11px;
+  font-weight: lighter;
+  font-size: 23px;
+  text-shadow: none;
+  color: #b1b1b1;
+  letter-spacing: normal;
+}
+.header-container .header-title-content {
+  text-align: center;
+}
+.configuration-container {
+  display: table;
+  margin: 0 auto;
+  min-height: 500px;
+  padding: 30px;
+  background-color: #f1f3f6;
+  border-radius: 50px;
+  box-shadow: 30px 30px 80px 0px rgba(55, 84, 170, 0.1), -30px -30px 80px 0px #ffffff, inset 4px 4px 20px 0px rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+.configuration-container .configuration-header {
+  position: relative;
+  height: 35px;
+}
+.configuration-container .configuration-header .configuration-tools--list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  right: 0;
+}
+.configuration-container .configuration-header .configuration-tools--list .configuration-tools--button {
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  line-height: 0;
+  text-align: center;
+  background-color: transparent;
+  transition: background-color 0.2s;
+  color: #b1b1b1;
+}
+.configuration-container .configuration-header .configuration-tools--list .configuration-tools--button:not(.deactivated) {
+  cursor: pointer;
+  color: #333333;
+}
+.configuration-container .configuration-header .configuration-tools--list .configuration-tools--button:not(.deactivated):hover {
+  background-color: #e4e4e4;
+}
+.configuration-container .configuration-header .configuration-tools--list .configuration-tools--button i {
+  top: 50%;
+  position: relative;
+  transform: translateY(-50%);
+}
+.configuration-container .configuration-header .configuration-tools--list .configuration-tools--button:not(:first-of-type) {
+  margin-left: 10px;
+}
+.configuration-container .configuration-content {
+  margin-top: 10px;
+  height: 100%;
+  display: table-row;
+}
+.configuration-container .configuration-form .configuration-form--entry {
+  padding: 10px;
+}
+.configuration-container .configuration-actions input {
+  margin-left: auto;
+  display: flex;
+}

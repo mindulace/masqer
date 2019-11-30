@@ -1,0 +1,111 @@
+.header-container {
+    padding: 10px;
+
+    .header-title {
+        font-family: 'Sulphur Point', sans-serif;
+        font-weight: bold;
+        font-size: 77px;
+        letter-spacing: -3px;
+        position: relative;
+
+        background-color: #666666;
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: rgba(255, 255, 255, 0.5) 0px 2px 2px;
+
+        &:after {
+            content: 'web configuration';
+            position: absolute;
+            left: 7px;
+            bottom: -11px;
+            font-weight: lighter;
+            font-size: 23px;
+            text-shadow: none;
+            color: #b1b1b1;
+            letter-spacing: normal;
+        }
+    }
+
+    .header-title-content {
+        text-align: center;
+    }
+}
+
+.configuration-container {
+    display: table;
+    margin: 0 auto;
+    min-height: 500px; //DEV_REMOVE PLS
+    padding: 30px;
+    
+    background-color: @background-color;
+    border-radius: 50px;
+    box-shadow: 30px 30px 80px 0px rgba(55, 84, 170, .1),
+        -30px -30px 80px 0px #ffffff,
+        inset 4px 4px 20px 0px rgba(255, 255, 255, .5);
+    border: 1px solid rgba(255, 255, 255, .5);
+
+    .configuration-header {
+        position: relative;
+        height: 35px;
+
+        .configuration-tools--list {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            position: absolute;
+            right: 0;
+    
+            .configuration-tools--button {
+                border-radius: 50%;
+                width: @configuration-tool-button-size;
+                height: @configuration-tool-button-size;
+                line-height: 0;
+                text-align: center;
+                background-color: transparent;
+                transition: background-color 0.2s;
+                color: #b1b1b1;
+
+                &:not(.deactivated) {
+                    cursor: pointer;
+                    color: #333333;
+
+                    &:hover {
+                        background-color: @configuration-tool-button-color;
+                    }
+                }
+
+                i {
+                    top: 50%;
+                    position: relative;
+                    transform: translateY(-50%);
+                }
+
+                &:not(:first-of-type) {
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
+
+    .configuration-content {
+        margin-top: 10px;
+        height: 100%;
+        display: table-row;
+    }
+
+    .configuration-form {
+        .configuration-form--entry {
+            padding: 10px;
+        }
+    }
+
+    .configuration-actions {
+        input {
+            margin-left: auto;
+            display: flex;
+        }
+    }
+}
