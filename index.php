@@ -13,7 +13,7 @@
     <div class="page-wrap">
         <div class="header-container">
             <div class="header-title-content">
-                <a class="header-title">dnsmasq</a>
+                <a class="header-title">masqer</a>
             </div>
         </div>
         <div class="content-container">
@@ -35,43 +35,36 @@
                 <div class="configuration-content">
                     <form id="configuration-form" class="configuration-form">
                         <div class="configuration-form--entry">
-                            <input id="select" type="checkbox" />
+                            <input class="entry--select" id="select" type="checkbox" />
                             <input id="ip_address" type="text" placeholder="IP address" />
                             <input id="domain" type="text" placeholder="Domain" />
                         </div>
                         <div class="configuration-form--entry">
-                            <input id="select" type="checkbox" />
+                            <input class="entry--select" id="select" type="checkbox" />
                             <input id="ip_address" type="text" placeholder="IP address" />
                             <input id="domain" type="text" placeholder="Domain" />
                         </div>
                         <div class="configuration-form--entry">
-                            <input id="select" type="checkbox" />
+                            <input class="entry--select" id="select" type="checkbox" />
                             <input id="ip_address" type="text" placeholder="IP address" />
                             <input id="domain" type="text" placeholder="Domain" />
                         </div>
                         <div class="configuration-form--entry">
-                            <input id="select" type="checkbox" />
+                            <input class="entry--select" id="select" type="checkbox" />
                             <input id="ip_address" type="text" placeholder="IP address" />
                             <input id="domain" type="text" placeholder="Domain" />
                         </div>
-                        <div class="configuration-form--entry">
-                            <input id="select" type="checkbox" />
-                            <input id="ip_address" type="text" placeholder="IP address" />
-                            <input id="domain" type="text" placeholder="Domain" />
-                        </div>
-                        <div class="configuration-form--entry">
-                            <input id="select" type="checkbox" />
-                            <input id="ip_address" type="text" placeholder="IP address" />
-                            <input id="domain" type="text" placeholder="Domain" />
-                        </div>
-                        <div class="configuration-form--entry">
-                            <input id="select" type="checkbox" />
-                            <input id="ip_address" type="text" placeholder="IP address" />
-                            <input id="domain" type="text" placeholder="Domain" />
-                        </div>
+
                     </form>
                     <div class="configuration-actions">
                         <input type="submit" value="Submit">
+                    </div>
+                </div>
+                <div class="is--hidden">
+                    <div id="is--template" class="configuration-form--entry">
+                        <input class="entry--select" id="select" type="checkbox" />
+                        <input id="ip_address" type="text" placeholder="IP address" />
+                        <input id="domain" type="text" placeholder="Domain" />
                     </div>
                 </div>
             </div>
